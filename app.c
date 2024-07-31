@@ -46,13 +46,51 @@ void view_events() {
     }
 }
 
+void search_event() {
+    char name[MAX_NAME_LENGTH];
+    printf("Enter the name of the event to search for: ");
+    scanf(" %[^\n]", name);
+    
+    for (int i = 0; i < event_count; i++) {
+        if (strcmp(events[i].name, name) == 0) {
+            printf("\nEvent found:\n");
+            printf("Name: %s\n", events[i].name);
+            printf("Date: %s\n", events[i].date);
+            printf("Location: %s\n", events[i].location);
+            printf("Description: %s\n", events[i].description);
+            return;
+        }
+    }
+    printf("Event not found.\n");
+}
+
+void delete_event() {
+    char name[MAX_NAME_LENGTH];
+    printf("Enter the name of the event to delete: ");
+    scanf(" %[^\n]", name);
+    
+    for (int i = 0; i < event_count; i++) {
+        if (strcmp(events[i].name, name) == 0) {
+            for (int j = i; j < event_count - 1; j++) {
+                events[j] = events[j + 1];
+            }
+            event_count--;
+            printf("Event deleted.\n");
+            return;
+        }
+    }
+    printf("Event not found.\n");
+}
+
 int main() {
     int choice;
     while (1) {
         printf("\nEvent Management System\n");
         printf("1. Add Event\n");
         printf("2. View Events\n");
-        printf("3. Exit\n");
+        printf("3. Search Event\n");
+        printf("4. Delete Event\n");
+        printf("5. Exit\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
         switch (choice) {
@@ -63,6 +101,12 @@ int main() {
                 view_events();
                 break;
             case 3:
+                search_event();
+                break;
+            case 4:
+                delete_event();
+                break;
+            case 5:
                 return 0;
             default:
                 printf("Invalid choice. Please try again.\n");
