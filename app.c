@@ -82,8 +82,7 @@ void delete_event() {
     printf("Event not found.\n");
 }
 
-int main() {
-    int choice;
+void get_user_input(int *choice) {
     while (1) {
         printf("\nEvent Management System\n");
         printf("1. Add Event\n");
@@ -92,7 +91,19 @@ int main() {
         printf("4. Delete Event\n");
         printf("5. Exit\n");
         printf("Enter your choice: ");
-        scanf("%d", &choice);
+        if (scanf("%d", choice) != 1) {
+            printf("Invalid input. Please enter a number.\n");
+            while (getchar() != '\n');
+        } else {
+            break;
+        }
+    }
+}
+
+int main() {
+    int choice;
+    while (1) {
+        get_user_input(&choice);
         switch (choice) {
             case 1:
                 add_event();
